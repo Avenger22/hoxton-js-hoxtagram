@@ -34,6 +34,7 @@ function renderPost(ImagesParam) {
 
     //we destroy everything then recreate each time it renders the page and state changes
     sectionPostEl.innerHTML = ''
+    renderPostForm()
 
     //recreate
     for (const element of ImagesParam) {
@@ -90,6 +91,45 @@ function renderPostItem(postParam) {
     divEl.append(spanEl, btnEl)
     articleEl.append(h2El, imgEl, divEl, ulEl)
     sectionPostEl.append(articleEl)
+
+}
+
+function renderPostForm() {
+    
+    //create the post header form to add things, update state and server rerender
+    const divEl = document.createElement('div')
+    divEl.setAttribute('class', 'post-form')
+
+    const h3El = document.createElement('h3')
+    h3El.setAttribute('class', 'post-form-header')
+    h3El.textContent = 'New Post'
+
+    const formEl = document.createElement('form')
+    formEl.setAttribute('class', 'post-form-el')
+
+    const inputEl1 = document.createElement('input')
+    inputEl1.setAttribute('class', 'post-form-input input-1')
+    inputEl1.placeholder = 'Add a title: '
+
+    const inputEl2 = document.createElement('input')
+    inputEl2.setAttribute('class', 'post-form-input input-2')
+    inputEl2.placeholder = 'Add how many likes: '
+
+    const inputEl3 = document.createElement('input')
+    inputEl3.setAttribute('class', 'post-form-input input-3')
+    inputEl3.placeholder = 'Add a comment: '
+
+    const inputEl4 = document.createElement('input')
+    inputEl4.setAttribute('class', 'post-form-input input-4')
+    inputEl4.placeholder = 'Add an image url: '
+
+    const btnEl = document.createElement('button')
+    btnEl.setAttribute('class', 'post-form-btn')
+    btnEl.textContent = 'Post'
+
+    formEl.append(inputEl1, inputEl2, inputEl3, inputEl4, btnEl)
+    divEl.append(h3El, formEl)
+    sectionPostEl.append(divEl)
 
 }
 

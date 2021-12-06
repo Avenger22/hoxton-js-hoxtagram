@@ -145,3 +145,29 @@ img {
 .comment-form.image-card .comment-button {
   font-size: 1rem;
 }
+
+.post-form {
+  display: grid;
+  grid-template-rows: 0.5fr 0.5fr;
+  place-items: center;
+  grid-gap: 10px;
+
+  height: auto;
+  width: 250px;
+  border: 2px solid #b1a6a6;
+} 
+
+.post-form .post-form-header {
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.post-form .post-form-el {
+  display: grid;
+  grid-template-rows: 0.2fr 0.2fr 0.2fr 0.2fr 0.2fr;
+  grid-gap: 10px;
+}
+
+.post-form .post-form-btn {
+  padding: 5px 5px
+}
