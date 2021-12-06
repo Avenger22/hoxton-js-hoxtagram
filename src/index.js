@@ -34,10 +34,17 @@ function addCommentUpdateToServer(commentsArrayParam) {
 
     for (const element of commentsArrayParam) {
 
-        // if (element.id === state.comments.length) {
-            fetch(`http://localhost:3000/images/${element.id}`, {
-            method: 'POST' })
-        // }
+        fetch('http://localhost:3000/comments', {
+
+        method: 'POST',
+
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(element)
+
+        })
 
     }
 
@@ -45,8 +52,16 @@ function addCommentUpdateToServer(commentsArrayParam) {
 
 function addItemFromFormToServer(elementParam) {
 
-    fetch(`http://localhost:3000/images/3`, {
-        method: 'POST' 
+    fetch('http://localhost:3000/images', {
+
+        method: 'POST',
+
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(elementParam)
+
     })
 
 }
@@ -90,7 +105,7 @@ function addItemFromFormToState(inputParam1, inputParam2, inputParam3, inputPara
             id: state.comments.length += 1,
             content: inputParam3,
             imageId: state.images[state.images.length - 1].id + 1
-            }
+            },
         ]
     }
 
@@ -104,8 +119,8 @@ function addItemFromFormToState(inputParam1, inputParam2, inputParam3, inputPara
         imageId: state.images[state.images.length - 1].id + 1
     })
 
-    //updating the server
-    addItemFromFormToServer(objectItem)
+    //updating the server BUGS
+    // addItemFromFormToServer(objectItem)
 
     //rendering after updating state, and updating server then rerender always
     render()

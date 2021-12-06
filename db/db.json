@@ -11,6 +11,28 @@
       "title": "Coder cats",
       "likes": 5,
       "image": "./assets/coder-cat.jpeg"
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "id": 5,
+      "title": "rerere",
+      "likes": "5",
+      "image": "./assets/image-placeholder.jpg",
+      "comments": [
+        {
+          "id": 6,
+          "content": "ojojjo",
+          "imageId": 5
+        }
+      ]
+    },
+    {
+      "id": 6
     }
   ],
   "comments": [
