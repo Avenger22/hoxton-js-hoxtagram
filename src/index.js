@@ -1,7 +1,8 @@
 //Global Variables to get accesed everywhere in the app
 const sectionPostEl = document.querySelector('section.image-container')
 
-//STATE OBJECT
+//--------------------------------------STATE OBJECT---------------------------------------------------
+
 const state = {
 
     images: [],
@@ -9,7 +10,11 @@ const state = {
 
 }
 
-//--------------------------------SERVER FUNCTIONS----------------------------------------------
+//----------------------------------------END OF STATE OBJECT--------------------------------------------
+
+
+//--------------------------------SERVER FUNCTIONS-----------------------------------------------------
+
 // getImagesDataFromServer :: () => Promise<todos: array>
 function getImagesDataFromServer() {
 
@@ -131,6 +136,7 @@ function addItemFromFormToState(inputParam1, inputParam2, inputParam3, inputPara
 
 
 //---------------------------------RENDER FUNCTIONS--------------------------------------------------
+
 function renderPost(ImagesParam) {
 
     //we destroy everything then recreate each time it renders the page and state changes
@@ -286,7 +292,9 @@ function render() {
     renderPost(state.images)
 
 }
+
 //------------------------------END OF RENDER FUNCTIONS------------------------------------------------------
+
 
 //FETCHING AND STORING DATA FROM SERVER TO STATE
 getImagesDataFromServer().then(function (imagesFromServer) {
@@ -298,6 +306,7 @@ getCommentsDataFromServer().then(function (commentsFromServer) {
     state.comments = commentsFromServer
     render()
 })
+
 
 //CALLING RENDER
 // This happens before the fetch is done and fetch requeires some ms to load the data
