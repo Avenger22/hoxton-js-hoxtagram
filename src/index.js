@@ -1,6 +1,7 @@
 //Global Variables to get accesed everywhere in the app
 const sectionPostEl = document.querySelector('section.image-container')
 
+//STATE OBJECT
 const state = {
 
     images: [],
@@ -29,20 +30,24 @@ function getCommentsDataFromServer() {
 
 }
 
-// function addCommentUpdateToServer(commentsArrayParam) {
+function addCommentUpdateToServer(commentsArrayParam) {
 
-//     for (const element of commentsArrayParam) {
+    for (const element of commentsArrayParam) {
 
-//         // if (element.id === state.comments.length) {
-//             fetch(`http://localhost:3000/comments/${element.id}`, {
-//             method: 'POST' })
-//         // }
+        // if (element.id === state.comments.length) {
+            fetch(`http://localhost:3000/comments/${element.id}`, {
+            method: 'POST' })
+        // }
 
-//     }
+    }
 
-// }
+}
+
+//---------------------------------END OF SERVER FUNCTIONS-------------------------------------------
+
 
 //---------------------------------HELPER FUNCTIONS-------------------------------------------------
+
 function addCommentForm(formParam, formValueParam) {
 
     formParam.comments.push({
@@ -51,18 +56,56 @@ function addCommentForm(formParam, formValueParam) {
         imageId: formParam.id
     })
 
-    // state.comments.push({
-    //     id: state.comments.length += 1,
-    //     content: formValueParam,
-    //     imageId: formParam.id
-    // })
+    state.comments.push({
+        id: state.comments.length += 1,
+        content: formValueParam,
+        imageId: formParam.id
+    })
 
     // addCommentUpdateToServer(formParam.comments)
 
     render()
 
+}
+
+function addItemFromForm(inputParam1, inputParam2, inputParam3, inputParam4) {
+
+    state.images.push({
+        // id: state.images.length += 1,
+        id: state.images.length + 1,
+        title: inputParam1,
+        likes: inputParam2,
+        image: inputParam4,
+        comments: [
+            {
+            id: state.comments.length += 1,
+            content: inputParam3,
+            imageId: state.images[state.images.length - 1].id + 1
+            }
+        ]
+        // comments: [
+        //     {
+        //         id: 1,
+        //         id: state.images[state.images.length - 1].comments.length,
+        //         content: inputParam3,
+        //         imageId: 1
+        //         imageId: state.images[state.images.length - 1].id
+        //     }
+        // ]
+    })
+
+    state.comments.push({
+        id: state.comments.length += 1,
+        content: inputParam3,
+        imageId: state.images[state.images.length - 1].id + 1
+    })
+
+    render()
 
 }
+
+//---------------------------------END OF HELPER FUNCTIONS---------------------------------------------------------
+
 
 //---------------------------------RENDER FUNCTIONS--------------------------------------------------
 function renderPost(ImagesParam) {
@@ -195,6 +238,23 @@ function renderPostForm() {
     divEl.append(h3El, formEl)
     sectionPostEl.append(divEl)
 
+    //values for getting input values from user
+    let inputElValue1, inputElValue2, inputElValue3, inputElValue4
+
+    // event listeners
+    formEl.addEventListener('submit', function(event) {
+
+        event.preventDefault()
+
+        inputElValue1 = formEl.title.value
+        inputElValue2 = formEl.likes.value
+        inputElValue3 = formEl.comment.value
+        inputElValue4 = formEl.image.value
+
+        addItemFromForm(inputElValue1, inputElValue2, inputElValue3, inputElValue4)
+
+    })
+
 }
 
 function render() {
@@ -203,6 +263,8 @@ function render() {
     renderPost(state.images)
 
 }
+//------------------------------END OF RENDER FUNCTIONS------------------------------------------------------
+
 
 getImagesDataFromServer().then(function (imagesFromServer) {
     state.images = imagesFromServer
