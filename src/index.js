@@ -3,8 +3,8 @@ const sectionPostEl = document.querySelector('section.image-container')
 
 const state = {
 
-    images: []
-    // comments: []
+    images: [],
+    comments: []
 
 }
 
@@ -19,16 +19,48 @@ function getImagesDataFromServer() {
 
 }
 
+//getCommentsDataFromServer :: () => Promise<todos: array>
+function getCommentsDataFromServer() {
+
+    return fetch('http://localhost:3000/comments').then(function (response) 
+    {
+        return response.json()
+    })
+
+}
+
+// function addCommentUpdateToServer(commentsArrayParam) {
+
+//     for (const element of commentsArrayParam) {
+
+//         // if (element.id === state.comments.length) {
+//             fetch(`http://localhost:3000/comments/${element.id}`, {
+//             method: 'POST' })
+//         // }
+
+//     }
+
+// }
+
 //---------------------------------HELPER FUNCTIONS-------------------------------------------------
 function addCommentForm(formParam, formValueParam) {
 
     formParam.comments.push({
-        id: formParam.id += 1,
+        id: state.comments.length += 1,
         content: formValueParam,
         imageId: formParam.id
     })
 
+    // state.comments.push({
+    //     id: state.comments.length += 1,
+    //     content: formValueParam,
+    //     imageId: formParam.id
+    // })
+
+    // addCommentUpdateToServer(formParam.comments)
+
     render()
+
 
 }
 
@@ -174,6 +206,11 @@ function render() {
 
 getImagesDataFromServer().then(function (imagesFromServer) {
     state.images = imagesFromServer
+    render()
+})
+
+getCommentsDataFromServer().then(function (commentsFromServer) {
+    state.comments = commentsFromServer
     render()
 })
 
