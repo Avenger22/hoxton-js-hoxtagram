@@ -35,11 +35,19 @@ function addCommentUpdateToServer(commentsArrayParam) {
     for (const element of commentsArrayParam) {
 
         // if (element.id === state.comments.length) {
-            fetch(`http://localhost:3000/comments/${element.id}`, {
+            fetch(`http://localhost:3000/images/${element.id}`, {
             method: 'POST' })
         // }
 
     }
+
+}
+
+function addItemFromFormToServer(elementParam) {
+
+    fetch(`http://localhost:3000/images/3`, {
+        method: 'POST' 
+    })
 
 }
 
@@ -68,9 +76,10 @@ function addCommentForm(formParam, formValueParam) {
 
 }
 
-function addItemFromForm(inputParam1, inputParam2, inputParam3, inputParam4) {
+function addItemFromFormToState(inputParam1, inputParam2, inputParam3, inputParam4) {
 
-    state.images.push({
+    // let idValue = state.images.length + 1
+    let objectItem = {
         // id: state.images.length += 1,
         id: state.images.length + 1,
         title: inputParam1,
@@ -83,23 +92,22 @@ function addItemFromForm(inputParam1, inputParam2, inputParam3, inputParam4) {
             imageId: state.images[state.images.length - 1].id + 1
             }
         ]
-        // comments: [
-        //     {
-        //         id: 1,
-        //         id: state.images[state.images.length - 1].comments.length,
-        //         content: inputParam3,
-        //         imageId: 1
-        //         imageId: state.images[state.images.length - 1].id
-        //     }
-        // ]
-    })
+    }
 
+    //variable pushed wich is the user form input new item
+    state.images.push(objectItem)
+
+    //we also push it to this array comments in the state object
     state.comments.push({
         id: state.comments.length += 1,
         content: inputParam3,
         imageId: state.images[state.images.length - 1].id + 1
     })
 
+    //updating the server
+    addItemFromFormToServer(objectItem)
+
+    //rendering after updating state, and updating server then rerender always
     render()
 
 }
@@ -251,8 +259,8 @@ function renderPostForm() {
         inputElValue3 = formEl.comment.value
         inputElValue4 = formEl.image.value
 
-        addItemFromForm(inputElValue1, inputElValue2, inputElValue3, inputElValue4)
-
+        addItemFromFormToState(inputElValue1, inputElValue2, inputElValue3, inputElValue4)
+        addItemFromFormToServer()
     })
 
 }
@@ -265,7 +273,7 @@ function render() {
 }
 //------------------------------END OF RENDER FUNCTIONS------------------------------------------------------
 
-
+//FETCHING AND STORING DATA FROM SERVER TO STATE
 getImagesDataFromServer().then(function (imagesFromServer) {
     state.images = imagesFromServer
     render()
@@ -276,5 +284,6 @@ getCommentsDataFromServer().then(function (commentsFromServer) {
     render()
 })
 
+//CALLING RENDER
 // This happens before the fetch is done and fetch requeires some ms to load the data
 render()
