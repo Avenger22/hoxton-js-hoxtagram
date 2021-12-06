@@ -3,8 +3,10 @@
 const sectionPostEl = document.querySelector('section.image-container')
 
 const state = {
-    images: [],
-    comments: []
+
+    images: []
+    // comments: []
+
 }
 
 //SERVER FUNCTIONS
@@ -19,22 +21,24 @@ function getImagesDataFromServer() {
 }
 
 // getCommentsDataFromServer :: () => Promise<todos: array>
-function getCommentsDataFromServer() {
+// function getCommentsDataFromServer() {
 
-    return fetch('http://localhost:3000/comments').then(function (response) 
-    {
-        return response.json()
-    })
+//     return fetch('http://localhost:3000/comments').then(function (response) 
+//     {
+//         return response.json()
+//     })
 
-}
+// }
 
-function renderPost(ImagesParam, commentsParam) {
+function renderPost(ImagesParam) {
 
     //we destroy everything then recreate each time it renders the page and state changes
     sectionPostEl.innerHTML = ''
 
     //recreate
-    // for (const element of )
+    for (const element of ImagesParam) {
+        renderPostItem(element)
+    }
 
 }
 
@@ -46,18 +50,18 @@ function renderPostItem(postParam) {
 
     const h2El = document.createElement('h2')
     h2El.setAttribute('class', 'title')
-    h2El.textContent = 'The title to be replaced'
+    h2El.textContent = postParam.title
 
     const imgEl = document.createElement('img')
     imgEl.setAttribute('class', 'image')
-    imgEl.setAttribute('src', './assets/image-placeholder.jpg')
+    imgEl.setAttribute('src', postParam.image)
 
     const divEl = document.createElement('div')
     divEl.setAttribute('class', 'likes-section')
 
     const spanEl = document.createElement('span')
     spanEl.setAttribute('class', 'likes')
-    spanEl.textContent = '0 likes'
+    spanEl.textContent = postParam.likes
 
     const btnEl = document.createElement('button')
     btnEl.setAttribute('class', 'like-button')
@@ -66,25 +70,34 @@ function renderPostItem(postParam) {
     const ulEl = document.createElement('ul')
     ulEl.setAttribute('class', 'comments')
 
-    const liEl1 = document.createElement('li')
-    liEl1.textContent = 'Get rid of these'
+    // const liEl2 = document.createElement('li')
+    // const liEl3 = document.createElement('li')
 
-    const liEl2 = document.createElement('li')
-    liEl2.textContent = 'Get rid of these'
+    // liEl1.textContent = postParam.comments[0].content
+    // liEl2.textContent = postParam.comments[1].content
+    // liEl3.textContent = postParam.comments[2].content
 
-    const liEl3 = document.createElement('li')
-    liEl3.textContent = 'Get rid of these'
+    //this fixed problem for comment creating dynamic li creation
+    for (const comment of postParam.comments) {
+        const liEl = document.createElement('li')
+        liEl.textContent = comment.content
+        ulEl.append(liEl)
+    }
+
+    
 
     //appending things
     divEl.append(spanEl, btnEl)
-    ulEl.append(liEl1, liEl2, liEl3)
     articleEl.append(h2El, imgEl, divEl, ulEl)
     sectionPostEl.append(articleEl)
 
 }
 
 function render() {
+
     console.log('rendering with state:', state)
+    renderPost(state.images)
+
 }
 
 getImagesDataFromServer().then(function (imagesFromServer) {
@@ -92,10 +105,10 @@ getImagesDataFromServer().then(function (imagesFromServer) {
     render()
 })
 
-getImagesDataFromServer().then(function (commentsFromServer) {
-    state.comments = commentsFromServer
-    render()
-})
+// getCommentsDataFromServer().then(function (commentsFromServer) {
+//     state.comments = commentsFromServer
+//     render()
+// })
 
 // This happens before the fetch is done and fetch requeires some ms to load the data
-renderPostItem()
+render()
