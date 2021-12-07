@@ -1,6 +1,7 @@
 //Global Variables to get accesed everywhere in the app
 const sectionPostEl = document.querySelector('section.image-container')
 
+
 //--------------------------------------STATE OBJECT---------------------------------------------------
 
 const state = {
@@ -10,10 +11,10 @@ const state = {
 
 }
 
-//----------------------------------------END OF STATE OBJECT--------------------------------------------
+//----------------------------------------END OF STATE OBJECT--------------------------------------------------------
 
 
-//--------------------------------SERVER FUNCTIONS-----------------------------------------------------
+//--------------------------------SERVER FUNCTIONS---------------------------------------------------------------------
 
 // getImagesDataFromServer :: () => Promise<todos: array> this function gets all images array stores in the state
 function getImagesDataFromServer() {
@@ -40,7 +41,7 @@ function addCommentUpdateToServer(commentsParam) {
 
     // for (const element of commentsArrayParam) {
 
-        fetch('http://localhost:3000/images', {
+        fetch('http://localhost:3000/comments', {
 
             method: 'POST',
 
@@ -85,10 +86,10 @@ function addItemFromFormToServer(imagesObjectParam) {
 
 }
 
-//---------------------------------END OF SERVER FUNCTIONS-------------------------------------------
+//---------------------------------END OF SERVER FUNCTIONS------------------------------------------------------------------
 
 
-//---------------------------------HELPER FUNCTIONS-------------------------------------------------
+//---------------------------------HELPER FUNCTIONS---------------------------------------------------------------------------
 
 //this function add coments from clicking the small btn in the post and ads it to the state then rerenders
 function addCommentFromForm(formParam, formValueParam) { //removed formparam
@@ -99,21 +100,21 @@ function addCommentFromForm(formParam, formValueParam) { //removed formparam
         imageId: formParam.id
     }
 
-    let objectForm = {
-        id: formParam.id,
-        title: formParam.title,
-        likes: formParam.likes,
-        image: formParam.image,
-        comments: [
-            objectCommentsAdd
-        ]
+    // let objectForm = {
+    //     id: formParam.id,
+    //     title: formParam.title,
+    //     likes: formParam.likes,
+    //     image: formParam.image,
+    //     comments: [
+    //         objectCommentsAdd
+    //     ]
 
-    }
+    // }
 
     formParam.comments.push(objectCommentsAdd)
     state.comments.push(objectCommentsAdd) 
 
-    addCommentUpdateToServer(objectForm) //this calls the function to update the server
+    addCommentUpdateToServer(objectCommentsAdd) //this calls the function to update the server
 
     render() //rerender the page after updating state,server then you do always this
 
