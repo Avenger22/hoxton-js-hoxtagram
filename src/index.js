@@ -90,7 +90,7 @@ function addCommentForm(formParam, formValueParam) {
         imageId: formParam.id
     })
 
-    // addCommentUpdateToServer(formParam.comments)
+    addCommentUpdateToServer(formParam.comments)
 
     render()
 
@@ -125,7 +125,7 @@ function addItemFromFormToState(inputParam1, inputParam2, inputParam3, inputPara
     })
 
     //updating the server BUGS
-    // addItemFromFormToServer(objectItem)
+    addItemFromFormToServer(objectItem)
 
     //rendering after updating state, and updating server then rerender always
     render()
