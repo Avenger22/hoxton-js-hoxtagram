@@ -36,7 +36,7 @@ function getCommentsDataFromServer() {
 }
 
 //this function adds each individual comment when you click small btn to the server
-function addCommentUpdateToServer(imagesParam) {
+function addCommentUpdateToServer(commentsParam) {
 
     // for (const element of commentsArrayParam) {
 
@@ -48,7 +48,7 @@ function addCommentUpdateToServer(imagesParam) {
                 'Content-Type': 'application/json'
             },
 
-            body: JSON.stringify(imagesParam)
+            body: JSON.stringify(commentsParam)
 
         })
 
@@ -57,7 +57,7 @@ function addCommentUpdateToServer(imagesParam) {
 }
 
 //this function adds every item from the form when i create to the server update
-function addItemFromFormToServer(imagesObjectParam, commentsObjectParam) {
+function addItemFromFormToServer(imagesObjectParam) {
 
     fetch('http://localhost:3000/images', {
 
@@ -71,17 +71,17 @@ function addItemFromFormToServer(imagesObjectParam, commentsObjectParam) {
 
     })
 
-    fetch('http://localhost:3000/comments', {
+    // fetch('http://localhost:3000/comments', {
 
-        method: 'POST',
+    //     method: 'POST',
 
-        headers: {
-            'Content-Type': 'application/json'
-        },
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
 
-        body: JSON.stringify(commentsObjectParam)
+    //     body: JSON.stringify(commentsObjectParam)
 
-    })
+    // })
 
 }
 
@@ -128,14 +128,14 @@ function addItemFromFormToState(inputParam1, inputParam2, inputParam3, inputPara
         id: state.images.length + 1,
         title: inputParam1,
         likes: inputParam2,
-        image: inputParam4
-        // comments: [
-        //     {
-        //     id: state.comments.length += 1,
-        //     content: inputParam3,
-        //     imageId: state.images[state.images.length - 1].id + 1
-        //     },
-        // ]
+        image: inputParam4,
+        comments: [
+            {
+            id: state.comments.length += 1,
+            content: inputParam3,
+            imageId: state.images[state.images.length - 1].id + 1
+            },
+        ]
     }
 
     //variable pushed wich is the user form input new item
@@ -151,7 +151,7 @@ function addItemFromFormToState(inputParam1, inputParam2, inputParam3, inputPara
     state.comments.push(objectItemComments)
 
     //updating the server
-    addItemFromFormToServer(objectItemImages, objectItemComments)
+    addItemFromFormToServer(objectItemImages)
 
     //rendering after updating state, and updating server then rerender always
     render()
