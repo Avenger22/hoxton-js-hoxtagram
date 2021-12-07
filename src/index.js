@@ -15,7 +15,7 @@ const state = {
 
 //--------------------------------SERVER FUNCTIONS-----------------------------------------------------
 
-// getImagesDataFromServer :: () => Promise<todos: array>
+// getImagesDataFromServer :: () => Promise<todos: array> this function gets all images array stores in the state
 function getImagesDataFromServer() {
 
     return fetch('http://localhost:3000/images').then(function (response) 
@@ -25,7 +25,7 @@ function getImagesDataFromServer() {
 
 }
 
-//getCommentsDataFromServer :: () => Promise<todos: array>
+//getCommentsDataFromServer :: () => Promise<todos: array> this function gets all comments array stores it in the state
 function getCommentsDataFromServer() {
 
     return fetch('http://localhost:3000/comments').then(function (response) 
@@ -35,6 +35,7 @@ function getCommentsDataFromServer() {
 
 }
 
+//this function adds each individual comment when you click small btn to the server
 function addCommentUpdateToServer(imagesParam) {
 
     // for (const element of commentsArrayParam) {
@@ -55,6 +56,7 @@ function addCommentUpdateToServer(imagesParam) {
 
 }
 
+//this function adds every item from the form when i create to the server update
 function addItemFromFormToServer(imagesObjectParam, commentsObjectParam) {
 
     fetch('http://localhost:3000/images', {
@@ -88,6 +90,7 @@ function addItemFromFormToServer(imagesObjectParam, commentsObjectParam) {
 
 //---------------------------------HELPER FUNCTIONS-------------------------------------------------
 
+//this function add coments from clicking the small btn in the post and ads it to the state then rerenders
 function addCommentFromForm(formParam, formValueParam) { //removed formparam
 
     let objectCommentsAdd = {
@@ -116,6 +119,7 @@ function addCommentFromForm(formParam, formValueParam) { //removed formparam
 
 }
 
+//this function add item form form in the page from clicking  the form submit in the page and ads it to the state then rerenders
 function addItemFromFormToState(inputParam1, inputParam2, inputParam3, inputParam4) {
 
     // let idValue = state.images.length + 1
@@ -159,6 +163,7 @@ function addItemFromFormToState(inputParam1, inputParam2, inputParam3, inputPara
 
 //---------------------------------RENDER FUNCTIONS--------------------------------------------------
 
+//this function renders post, wich itself calls rendePostItem in a for loop to get all from the state, destroy then recreate
 function renderPost(ImagesParam) {
 
     //we destroy everything then recreate each time it renders the page and state changes
@@ -172,6 +177,7 @@ function renderPost(ImagesParam) {
 
 }
 
+//this function renders individually each post item, with DOM and Events manipulation
 function renderPostItem(postParam) {
 
     //we create the post card by js from template
@@ -240,6 +246,7 @@ function renderPostItem(postParam) {
 
 }
 
+//this function renders the form in the beginning of the page, to add new items wich is user input
 function renderForm() {
     
     //create the post header form to add things, update state and server rerender
@@ -308,6 +315,7 @@ function renderForm() {
 
 }
 
+//the main function calls everything and makes state and rerendering works
 function render() {
 
     console.log('rendering with state:', state)
@@ -318,7 +326,7 @@ function render() {
 //------------------------------END OF RENDER FUNCTIONS------------------------------------------------------
 
 
-//FETCHING AND STORING DATA FROM SERVER TO STATE
+//FETCHING AND STORING DATA FROM SERVER TO STATE both arrays from json server
 getImagesDataFromServer().then(function (imagesFromServer) {
     state.images = imagesFromServer
     render()
