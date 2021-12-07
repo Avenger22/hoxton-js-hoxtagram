@@ -35,27 +35,27 @@ function getCommentsDataFromServer() {
 
 }
 
-function addCommentUpdateToServer(commentsArrayParam) {
+function addCommentUpdateToServer(objectParam) {
 
-    for (const element of commentsArrayParam) {
+    // for (const element of commentsArrayParam) {
 
         fetch('http://localhost:3000/comments', {
 
-        method: 'POST',
+            method: 'POST',
 
-        headers: {
-            'Content-Type': 'application/json'
-        },
+            headers: {
+                'Content-Type': 'application/json'
+            },
 
-        body: JSON.stringify(element)
+            body: JSON.stringify(objectParam)
 
         })
 
-    }
+    // }
 
 }
 
-function addItemFromFormToServer(elementParam) {
+function addItemFromFormToServer(imagesObjectParam, commentsObjectParam) {
 
     fetch('http://localhost:3000/images', {
 
@@ -65,7 +65,19 @@ function addItemFromFormToServer(elementParam) {
             'Content-Type': 'application/json'
         },
 
-        body: JSON.stringify(elementParam)
+        body: JSON.stringify(imagesObjectParam)
+
+    })
+
+    fetch('http://localhost:3000/comments', {
+
+        method: 'POST',
+
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(commentsObjectParam)
 
     })
 
@@ -76,56 +88,55 @@ function addItemFromFormToServer(elementParam) {
 
 //---------------------------------HELPER FUNCTIONS-------------------------------------------------
 
-function addCommentForm(formParam, formValueParam) {
+function addCommentFromForm(formParam, formValueParam) { //removed formparam
 
-    formParam.comments.push({
+    let objectCommentsAdd = {
         id: state.comments.length += 1,
         content: formValueParam,
         imageId: formParam.id
-    })
+    }
 
-    state.comments.push({
-        id: state.comments.length += 1,
-        content: formValueParam,
-        imageId: formParam.id
-    })
+    formParam.comments.push(objectCommentsAdd)
+    state.comments.push(objectCommentsAdd) //update the state
 
-    addCommentUpdateToServer(formParam.comments)
+    addCommentUpdateToServer(objectCommentsAdd) //this calls the function to update the server
 
-    render()
+    render() //rerender the page after updating state,server then you do always this
 
 }
 
 function addItemFromFormToState(inputParam1, inputParam2, inputParam3, inputParam4) {
 
     // let idValue = state.images.length + 1
-    let objectItem = {
+    let objectItemImages = {
         // id: state.images.length += 1,
         id: state.images.length + 1,
         title: inputParam1,
         likes: inputParam2,
-        image: inputParam4,
-        comments: [
-            {
-            id: state.comments.length += 1,
-            content: inputParam3,
-            imageId: state.images[state.images.length - 1].id + 1
-            },
-        ]
+        image: inputParam4
+        // comments: [
+        //     {
+        //     id: state.comments.length += 1,
+        //     content: inputParam3,
+        //     imageId: state.images[state.images.length - 1].id + 1
+        //     },
+        // ]
     }
 
     //variable pushed wich is the user form input new item
-    state.images.push(objectItem)
+    state.images.push(objectItemImages)
 
     //we also push it to this array comments in the state object
-    state.comments.push({
+    let objectItemComments = {
         id: state.comments.length += 1,
         content: inputParam3,
         imageId: state.images[state.images.length - 1].id + 1
-    })
+    }
 
-    //updating the server BUGS
-    addItemFromFormToServer(objectItem)
+    state.comments.push(objectItemComments)
+
+    //updating the server
+    addItemFromFormToServer(objectItemImages, objectItemComments)
 
     //rendering after updating state, and updating server then rerender always
     render()
@@ -141,7 +152,7 @@ function renderPost(ImagesParam) {
 
     //we destroy everything then recreate each time it renders the page and state changes
     sectionPostEl.innerHTML = ''
-    renderPostForm()
+    renderForm()
 
     //recreate
     for (const element of ImagesParam) {
@@ -212,13 +223,13 @@ function renderPostItem(postParam) {
 
         event.preventDefault()
         inputValue = formEl.comment.value
-        addCommentForm(postParam, inputValue)
+        addCommentFromForm(postParam, inputValue)
         
       })
 
 }
 
-function renderPostForm() {
+function renderForm() {
     
     //create the post header form to add things, update state and server rerender
     const divEl = document.createElement('div')

@@ -11,6 +11,18 @@
       "title": "Coder cats",
       "likes": 5,
       "image": "./assets/coder-cat.jpeg"
+    },
+    {
+      "id": 3,
+      "title": "Dog who is coding js",
+      "likes": 17,
+      "image": "./assets/coder-dog.png"
+    },
+    {
+      "id": 4,
+      "title": "Dog",
+      "likes": 27,
+      "image": "./assets/coder-dog.png"
     }
   ],
   "comments": [
@@ -38,6 +50,61 @@
       "imageId": 1,
       "content": "Hes a good boy!!",
       "id": 5
+    },
+    {
+      "imageId": 3,
+      "content": "Hes a good boy!!",
+      "id": 6
+    },
+    {
+      "imageId": 3,
+      "content": "Hes a good boy!!",
+      "id": 7
+    },
+    {
+      "imageId": 4,
+      "content": "Hes a good boy!!",
+      "id": 8
+    },
+    {
+      "imageId": 4,
+      "content": "Hes a good boy!!",
+      "id": 9
+    },
+    {
+      "id": 10,
+      "content": "ooo",
+      "imageId": 1
+    },
+    {
+      "id": 12,
+      "content": "oojojo",
+      "imageId": 1
+    },
+    {
+      "id": 14,
+      "content": "ooo",
+      "imageId": 2
+    },
+    {
+      "id": 13,
+      "content": "ooj",
+      "imageId": 1
+    },
+    {
+      "id": 16,
+      "content": "ooo",
+      "imageId": 2
+    },
+    {
+      "id": 18,
+      "content": "ooo",
+      "imageId": 2
+    },
+    {
+      "id": 20,
+      "content": "opoo",
+      "imageId": 2
     }
   ]
 }
