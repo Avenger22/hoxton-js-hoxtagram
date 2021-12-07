@@ -35,11 +35,11 @@ function getCommentsDataFromServer() {
 
 }
 
-function addCommentUpdateToServer(objectParam) {
+function addCommentUpdateToServer(imagesParam) {
 
     // for (const element of commentsArrayParam) {
 
-        fetch('http://localhost:3000/comments', {
+        fetch('http://localhost:3000/images', {
 
             method: 'POST',
 
@@ -47,7 +47,7 @@ function addCommentUpdateToServer(objectParam) {
                 'Content-Type': 'application/json'
             },
 
-            body: JSON.stringify(objectParam)
+            body: JSON.stringify(imagesParam)
 
         })
 
@@ -96,10 +96,21 @@ function addCommentFromForm(formParam, formValueParam) { //removed formparam
         imageId: formParam.id
     }
 
-    formParam.comments.push(objectCommentsAdd)
-    state.comments.push(objectCommentsAdd) //update the state
+    let objectForm = {
+        id: formParam.id,
+        title: formParam.title,
+        likes: formParam.likes,
+        image: formParam.image,
+        comments: [
+            objectCommentsAdd
+        ]
 
-    addCommentUpdateToServer(objectCommentsAdd) //this calls the function to update the server
+    }
+
+    formParam.comments.push(objectCommentsAdd)
+    state.comments.push(objectCommentsAdd) 
+
+    addCommentUpdateToServer(objectForm) //this calls the function to update the server
 
     render() //rerender the page after updating state,server then you do always this
 
